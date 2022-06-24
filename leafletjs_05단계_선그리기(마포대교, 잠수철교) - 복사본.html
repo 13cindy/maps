@@ -1,0 +1,58 @@
+<!--html 선언-->
+<!DOCTYPE html>
+
+<!--html 언어 '한글' 선언-->
+<html lang="ko">
+ 
+    <head>
+        <!--타이틀 선언-->
+        <title>선 그리기</title>
+        <!--문자 코드셋 '유니코드' 선언-->
+        <meta charset="utf-8">
+        <!--leaflet의 css 선언-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+        <!--leaflet의 javascript 선언-->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+        <!--style을 이용해 leaflet map이 그려질 공간을 설정-->
+        <style>
+            html, body, #mapid{
+                height: 100%;
+                margin: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--map이 그려질 부분인 div 코드 작성-->
+        <div id = 'mapid'></div>
+
+        <script>
+            //맵 생성하기 -map 변수 설정과 초기 뷰(위경도, 줌레벨) 지정
+            var map = L.map('mapid').setView([37.53025, 127.01008],6);
+
+            //맵 생성하기 -open street map 레이어 로드 및 출력
+            var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+                attribution:'&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> Contributors'
+            }).addTo(map);
+
+               
+            //선을 위한 위경도 목록1
+            var latlngs = [
+                [37.5374, 126.94265], //마포대교
+                [37.52956, 126.92996], //마포대교
+            ];
+
+    
+        
+            //선 그리기1
+            var polyline = L.polyline(latlngs, {color: 'black', weight:5, opacity:1.0}).bindTooltip('시각장애인 안마사 마포대교 투신사건',
+            { direction: "center",//center, top, left, right, auto
+                                permanent: true,
+                                opacity:0.9}).addTo(map);
+      
+    
+            map.fitBounds(polyline.getBounds());
+
+        </script>
+    </body>
+</html>
